@@ -1,13 +1,10 @@
 @extends('layouts.app')
-
 @section('content')
-
-<form action="{{url('/servicios/'.$servicio->id)}}" method="post" enctype="multipart/form-data">
-{{csrf_field()}}
-{{method_field('PATCH')}}
-@include('servicios.form',['Modo'=>'editar'])
-
-</form>
-
-</div>
+    <div class="container">
+        <form action="{{ url('/servicios/'.$servicios->id)}}" method="post" enctype="multipart/form-data">
+            @csrf
+            {{method_field('PATCH')}}
+            @include('servicios.form',['modo'=>'Editar'])
+        </form>
+    </div>
 @endsection

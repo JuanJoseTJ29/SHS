@@ -46,14 +46,29 @@ class ServiciosController extends Controller
         //
         //$datosServicio=request()->all();
 
-        $datosServicio=request()->except('_token');
-       
-        if($request->hasFile('foto')){
-            $datosServicio['foto']=$request->file('foto')->store('uploads','public');
+        $campos=[
+            'Titulo'=>'required|string|max:100',
+            'Descripcion'=>'required|string|max:100',
+            'Precio'=>'required|string|max:100',
+            'Foto'=>'required|max:10000|mimes:jpeg,png,jpg',
+        ];
+        $mensaje=[
+            'required'=>'El :attribute es requerido',
+            'Foto.required'=>'La foto es requerida'
+        ];
+
+        $this->validate($request,$campos,$mensaje);
+
+        //$datosservicio=request()->all();
+        $datosservicio=request()->except('_token');
+        if($request->hasFile('Foto')){
+            $datosservicio['Foto']=$request->file('Foto')->store('uploads','public');
+        }
+        servicios::insert($datosservicio);
+        //return response()->json($datosservicio);
+        return redirect('servicios')->with('mensaje','servicios agregado con exito');
     }
-    Servicios::insert( $datosServicio);
-    return response()->json($datosServicio);
-     }
+
     /**
      * Display the specified resource.
      *
@@ -74,7 +89,6 @@ class ServiciosController extends Controller
     public function edit($id)
     {
         //
-
         $servicio= Servicios::findOrFail($id); // recepciona la informacion que nos envian a travez de la url y busca a todos los empleado o empleados que tengan ese id ($Nombre)
         return view ('servicios.edit', compact('servicio'));// lo que esta haciendo es enviar la informacion del empleado a travez del retorno de la vista
     }

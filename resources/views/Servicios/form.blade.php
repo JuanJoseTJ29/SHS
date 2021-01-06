@@ -1,47 +1,39 @@
-<div class="form-group">
-
-<label for="titulo" class="control-label">{{'Titulo'}}</label>
-
-
-<input type="text" class="form-control {{$errors->has('titulo')?'is-invalid':''}}" name="titulo" id="titulo"
-
-value="{{isset($servicio->titulo)?$servicio->titulo:old('titulo')}}">
-
-{!! $errors->first('Titulo','<div class="invalid-feedback">:message</div>')!!}
-
-</div>
-
-
-
-
-<div class="form-group">
-<label for="descripcion"  class="control-label">{{'Descripcion'}}</label>
-<input type="text" class="form-control {{$errors->has('descripcion')?'is-invalid':''}}" name="descripcion" id="descripcion" 
-value="{{isset($servicio->descripcion)?$servicio->descripcion:old('descripcion')}}">
-{!! $errors->first('Descripcion','<div class="invalid-feedback">:message</div>')!!}
-</div>
-
-
-<div class="form-group">
-<label for="precio" class="control-label">{{'Precio'}}</label>
-<input type="text" class="form-control {{$errors->has('precio')?'is-invalid':''}}" name="precio" id="precio" 
-value="{{isset($servicio->precio)?$servicio->precio:old('precio')}}">
-{!! $errors->first('Precio','<div class="invalid-feedback">:message</div>')!!}
-</div>
-
-<div class="form-group">
-<label for="foto" class="control-label">{{'Foto'}}</label>
-@if(isset($servicio->foto))
-<br/>
-
-<img class="img-thumbnail img-fluid" src="{{asset('storage').'/'.$servicio->foto}}" alt="" width="150">
-<br/>
+<h1>{{$modo}} servicios </h1>
+@if(count($errors)>0)
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+    </div>
 @endif
-<input class="form-control {{$errors->has('foto')?'is-invalid':''}}" type="file" name="foto" id="foto" value="">
-{!! $errors->first('Foto','<div class="invalid-feedback">:message</div>')!!}
+
+<div class="form-group">
+    <label for="Titulo" class="control-label">{{'Titulo'}}</label>
+    <input type="text" class="form-control" name="Titulo" id="Titulo" value="{{isset($servicio->Titulo)?$servicio->Titulo:old('Titulo')}}">
 </div>
 
+<div class="form-group">
+    <label for="Descripcion"  class="control-label">{{'Descripcion'}}</label>
+    <input type="text" class="form-control" name="Descripcion" id="Descripcion" value="{{isset($servicio->Descripcion)?$servicio->Descripcion:old('Descripcion')}}">
+</div>
 
-<input type="submit" class="btn btn-success" value="{{$Modo=='crear' ? 'Agregar':'Modificar'}}">
+<div class="form-group">
+    <label for="Precio" class="control-label">{{'Precio'}}</label>
+    <input type="text" class="form-control" name="Precio" id="Precio" value="{{isset($servicio->Precio)?$servicio->Precio:old('Precio')}}">
+</div>
 
-<a class="btn btn-primary" href="{{url('servicios')}}">Regresar</a> 
+<div class="form-group">
+    <label for="Foto">{{'Foto'}}</label>
+        @if(isset($servicio->Foto))
+            <br/>
+            <img class="img-thumbnail img-fluid" src="{{ asset('storage').'/'. $servicio->Foto}}" alt="" width="100">
+            <br/>
+        @endif
+    <input type="file" class="form-control" name="Foto" id="Foto" value="">    
+</div>
+
+<input class="btn btn-success" type="submit" value="{{$modo}} datos">
+<a class="btn btn-primary" href="{{url('servicios/')}}">Regresar</a>
+<br>

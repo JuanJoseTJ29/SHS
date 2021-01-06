@@ -20,19 +20,20 @@
                     <th>Titulo</th>
                     <th>Descripcion</th>
                     <th>Precio</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($servicios as $servicios)
+                @foreach($servicios as $servicio)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td><img src="{{asset('storage').'/'.$servicios->Foto}}" class="img-thumbnail img-fluid" alt="" width="2000"></td>
-                        <td>{{$servicios->titulo}}</td>
-                        <td>{{$servicios->descripcion}}</td>
-                        <td>{{$servicios->precio}}</td>
+                        <td><img src="{{asset('storage').'/'.$servicio->Foto}}" class="img-thumbnail img-fluid" alt="" width="2000"></td>
+                        <td>{{$servicio->titulo}}</td>
+                        <td>{{$servicio->descripcion}}</td>
+                        <td>{{$servicio->precio}}</td>
                         <td> 
-                            <a class="btn btn-warning" href="{{url('/servicios/'.$servicios->id.'/edit')}}">Editar</a>
-                            <form action="{{ url('/servicios', ['servicios' => $servicios->id]) }}" class="d-inline" method="post">
+                            <a class="btn btn-warning" href="{{url('/servicios/'.$servicio->id.'/edit')}}">Editar</a>
+                            <form action="{{ url('/servicios', ['servicio' => $servicio->id]) }}" class="d-inline" method="post">
                                 @csrf
                                 {{method_field('DELETE')}}
                                 <input class="btn btn-danger" type="submit" onclick="return confirm('¿Quieres Borrar?')" value="Borrar">
