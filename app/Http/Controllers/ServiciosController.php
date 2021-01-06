@@ -90,6 +90,7 @@ class ServiciosController extends Controller
     {
         //
         $servicio= Servicios::findOrFail($id); // recepciona la informacion que nos envian a travez de la url y busca a todos los empleado o empleados que tengan ese id ($Nombre)
+        //$empleado = Empleados::find($id);
         return view ('servicios.edit', compact('servicio'));// lo que esta haciendo es enviar la informacion del empleado a travez del retorno de la vista
     }
 
@@ -100,9 +101,34 @@ class ServiciosController extends Controller
      * @param  \App\Models\Servicios  $servicios
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Servicios $servicios)
+    public function update(Request $request, $id)
     {
         //
+        $campos=[
+            'Titulo'=>'required|string|max:100',
+            'Descripcion'=>'required|string|max:100',
+            'Precio'=>'required|string|max:100',
+        ];
+        $mensaje=[
+            'required'=>':attribute es requerido',
+        ];
+        if($request->hasFile('Foto')){
+            $campos=['Foto'=>'required|max:10000|mimes:jpeg,png,jpg'];
+            $mensaje=['Foto.required'=>'La foto es requerida'];
+        }
+        $this->validate($request,$campos,$mensaje);
+        //
+        $datosservicio=request()->except(['_token','_method']);
+        if($request->hasFile('Foto')){
+            $servicio = Servicios::findOrFail($id);
+            Storage::delete('public/'.$servicio->Foto);
+            $datosservicio['Foto']=$request->file('Foto')->store('uploads','public');
+        }
+        Servicios::where('id','=',$id)->update($datosservicio);
+        $servicio = Servicios::findOrFail($id);
+        //return view('empleados.edit', compact('empleado')); 
+        return redirect('servicios')->with('mensaje','Servicio Modificado');
+
     }
 
     /**
@@ -114,7 +140,13 @@ class ServiciosController extends Controller
     public function destroy($id)
     {
         //
-        Servicios::destroy($id);
-        return redirect('servicios');
+        $servicio = Servicios::findOrFail($id);
+        if(Storage::delete('public/'.$servicio->Foto)){
+            Servicios::destroy($id);
+        }
+        return redirect('servicios')->with('mensaje','Servicio Borrado');
+
+        //Empleados::find($id)->delete();
+        //return redirect('/empleados');
     }
 }

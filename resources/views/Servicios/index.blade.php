@@ -27,7 +27,7 @@
                 @foreach($servicios as $servicio)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td><img src="{{asset('storage').'/'.$servicio->Foto}}" class="img-thumbnail img-fluid" alt="" width="2000"></td>
+                        <td><img src="{{asset('storage').'/'.$servicio->foto}}" class="img-thumbnail img-fluid" alt="" width="2000"></td>
                         <td>{{$servicio->titulo}}</td>
                         <td>{{$servicio->descripcion}}</td>
                         <td>{{$servicio->precio}}</td>

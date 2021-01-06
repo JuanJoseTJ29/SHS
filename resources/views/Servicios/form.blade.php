@@ -10,25 +10,25 @@
 @endif
 
 <div class="form-group">
-    <label for="Titulo" class="control-label">{{'Titulo'}}</label>
-    <input type="text" class="form-control" name="Titulo" id="Titulo" value="{{isset($servicio->Titulo)?$servicio->Titulo:old('Titulo')}}">
+    <label for="Titulo" class="control-label">Titulo</label>
+    <input type="text" class="form-control" name="Titulo" id="Titulo" value="{{isset($servicio->titulo)?$servicio->titulo:old('Titulo')}}">
 </div>
 
 <div class="form-group">
-    <label for="Descripcion"  class="control-label">{{'Descripcion'}}</label>
-    <input type="text" class="form-control" name="Descripcion" id="Descripcion" value="{{isset($servicio->Descripcion)?$servicio->Descripcion:old('Descripcion')}}">
+    <label for="Descripcion"  class="control-label">Descripcion</label>
+    <input type="text" class="form-control" name="Descripcion" id="Descripcion" value="{{isset($servicio->descripcion)?$servicio->descripcion:old('Descripcion')}}">
 </div>
 
 <div class="form-group">
-    <label for="Precio" class="control-label">{{'Precio'}}</label>
-    <input type="text" class="form-control" name="Precio" id="Precio" value="{{isset($servicio->Precio)?$servicio->Precio:old('Precio')}}">
+    <label for="Precio" class="control-label">Precio</label>
+    <input type="text" class="form-control" name="Precio" id="Precio" value="{{isset($servicio->precio)?$servicio->precio:old('Precio')}}">
 </div>
 
 <div class="form-group">
-    <label for="Foto">{{'Foto'}}</label>
-        @if(isset($servicio->Foto))
+    <label for="Foto">Foto</label>
+        @if(isset($servicio->foto))
             <br/>
-            <img class="img-thumbnail img-fluid" src="{{ asset('storage').'/'. $servicio->Foto}}" alt="" width="100">
+            <img class="img-thumbnail img-fluid" src="{{asset('storage').'/'.$servicio->foto}}" alt="" width="100">
             <br/>
         @endif
     <input type="file" class="form-control" name="Foto" id="Foto" value="">    
