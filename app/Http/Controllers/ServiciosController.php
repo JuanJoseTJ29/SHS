@@ -141,7 +141,7 @@ class ServiciosController extends Controller
     {
         //
         $servicio = Servicios::findOrFail($id);
-        if(Storage::delete('public/'.$servicio->Foto)){
+        if(Storage::delete('public/'.$servicio->foto)){
             Servicios::destroy($id);
         }
         return redirect('servicios')->with('mensaje','Servicio Borrado');
