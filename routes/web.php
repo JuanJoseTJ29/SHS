@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/servicios','\App\Http\Controllers\ServiciosController@index');
-Route::get('/servicios/create','\App\Http\Controllers\ServiciosController@create');
+//Route::get('/servicios','\App\Http\Controllers\ServiciosController@index');
+//Route::get('/servicios/create','\App\Http\Controllers\ServiciosController@create');
 
 
+Route::resource('servicios','\App\Http\Controllers\ServiciosController');
 
 Auth::routes();
 

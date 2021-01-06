@@ -15,6 +15,12 @@ class ServiciosController extends Controller
     public function index()
     {
         //
+
+        $datos['servicios']=Servicios::paginate(3);
+
+        return view('servicios.index',$datos);
+
+
     }
 
     /**
@@ -25,6 +31,7 @@ class ServiciosController extends Controller
     public function create()
     {
         //
+        return view('servicios.create');
     }
 
     /**
@@ -36,8 +43,16 @@ class ServiciosController extends Controller
     public function store(Request $request)
     {
         //
-    }
+        //$datosServicio=request()->all();
 
+        $datosServicio=request()->except('_token');
+       
+        if($request->hasFile('foto')){
+            $datosServicio['foto']=$request->file('foto')->store('uploads','public');
+    }
+    Servicios::insert( $datosServicio);
+    return response()->json($datosServicio);
+     }
     /**
      * Display the specified resource.
      *
@@ -55,9 +70,12 @@ class ServiciosController extends Controller
      * @param  \App\Models\Servicios  $servicios
      * @return \Illuminate\Http\Response
      */
-    public function edit(Servicios $servicios)
+    public function edit($id)
     {
         //
+
+        $servicio= Servicios::findOrFail($id); // recepciona la informacion que nos envian a travez de la url y busca a todos los empleado o empleados que tengan ese id ($Nombre)
+        return view ('servicios.edit', compact('servicio'));// lo que esta haciendo es enviar la informacion del empleado a travez del retorno de la vista
     }
 
     /**
@@ -78,8 +96,10 @@ class ServiciosController extends Controller
      * @param  \App\Models\Servicios  $servicios
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Servicios $servicios)
+    public function destroy($id)
     {
         //
+        Servicios::destroy($id);
+        return redirect('servicios');
     }
 }

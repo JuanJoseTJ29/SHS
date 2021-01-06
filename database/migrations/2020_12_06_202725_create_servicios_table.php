@@ -15,9 +15,6 @@ class CreateServiciosTable extends Migration
     {
         Schema::create('servicios', function (Blueprint $table) {
             $table->id();
-
-            $table->bigInteger('profile_id')->unsigned();
-            
             $table->string('titulo');
             $table->text('descripcion');
             $table->double('precio', 8, 2);
@@ -37,3 +34,4 @@ class CreateServiciosTable extends Migration
         Schema::dropIfExists('servicios');
     }
 }
+
