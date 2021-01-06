@@ -8,8 +8,7 @@
 
         <!-- Link de Bootstrap
         <script src="{{ asset('js/app.js') }}" defer></script>
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
--->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">-->
         <!-- Iconos -->    
         <script src="https://kit.fontawesome.com/b91f129f33.js" crossorigin="anonymous"></script>
         <!--Tipografia-->
